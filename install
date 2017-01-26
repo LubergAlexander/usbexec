@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -xe
+
+# install path
+IPATH=~/.usbexec
+
+# build dummy bin to remove the event
+echo compile
+xcodebuild -quiet -alltargets
+
+# install dummy bin
+echo cp YKD
+mkdir -p $IPATH
+cp build/Release/LaunchEventsPurger $IPATH/
+cp commands $IPATH/
+
+# install Event listener
+echo cp LA
+sed "s!__HOME__!$HOME!" org.profundos.usbexec.plist > ~/Library/LaunchAgents/org.profundos.usbexec.plist
+
+# listen Events
+echo load
+launchctl load ~/Library/LaunchAgents/org.profundos.usbexec*.plist
+
+echo DONE

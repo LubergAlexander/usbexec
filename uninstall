@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#set -e
+
+echo stop
+launchctl stop org.profundos.usbexec
+
+echo unload
+launchctl unload $HOME/Library/LaunchAgents/org.profundos.usbexec*.plist
+
+echo rm
+rm $HOME/Library/LaunchAgents/org.profundos.usbexec*.plist
+
+echo rm
+rm -rf $HOME/usbexec
+
+echo DONE
